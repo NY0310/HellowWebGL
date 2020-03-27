@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+生WebGL
+-->
+<html>
+
+<head>
+    <title>Hello World Raw WebGL.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html,
+        body {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            margin: 0px auto;
+        }
+    </style>
+    <script src="script.js"></script>
+
+    <script id="vs" type="x-shader/x-vertex">
+    //attribute・頂点シェーダーの返り値
+    attribute vec3 position;
+    //uniform・普通の変数
+    uniform mat4 mvpMatrix;
+    //varying ・ピクセルシェーダーに渡せる
+    varying vec4 vColor;
+    void main ()
+    {
+        vColor = vec4(1.0,0.0,0.0,1.0);
+        // 1. JavaScript側から送られた頂点データをそのままgl_Positionに渡す
+        gl_Position = vec4(position, 1.0);
+        //gl_Position = mvpMatrix * position;
+
+    }
+</script>
+
+    <script id="fs" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 vColor;
+    void main ()
+    {
+        // 2.処理する座標を白色で塗りつぶす
+        gl_FragColor = vColor;
+    }
+</script>
+
+</head>
+
+<body><canvas id="canvas"></canvas></body>
+
+</html>
